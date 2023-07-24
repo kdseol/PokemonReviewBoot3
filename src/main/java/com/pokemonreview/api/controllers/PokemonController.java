@@ -26,12 +26,12 @@ public class PokemonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PokemonDto> pokemonDetail(@PathVariable int id) {
-        return ResponseEntity.ok(pokemonService.getPokemonById(id));
+    public ResponseEntity<PokemonDto> pokemonDetail(@PathVariable int pokemonId) {
+        return ResponseEntity.ok(pokemonService.getPokemonById(pokemonId));
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED) // 201 (status code)
     public ResponseEntity<PokemonDto> createPokemon(@RequestBody PokemonDto pokemonDto) {
         return new ResponseEntity<>(pokemonService.createPokemon(pokemonDto), HttpStatus.CREATED);
     }
