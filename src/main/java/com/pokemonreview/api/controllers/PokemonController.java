@@ -1,9 +1,8 @@
-package com.pokemonreview.api.coltrollers;
+package com.pokemonreview.api.controllers;
 
 import com.pokemonreview.api.dto.PageResponse;
 import com.pokemonreview.api.dto.PokemonDto;
 import com.pokemonreview.api.service.PokemonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class PokemonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PokemonDto> pokemonDetail(@PathVariable int pokemonId) {
+    public ResponseEntity<PokemonDto> pokemonDetail(@PathVariable("id") int pokemonId) {
         return ResponseEntity.ok(pokemonService.getPokemonById(pokemonId));
     }
 
