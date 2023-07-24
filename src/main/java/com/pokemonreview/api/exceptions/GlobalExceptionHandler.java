@@ -14,15 +14,13 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(MyResourceException.class)
-    public ResponseEntity<ErrorObject> handleResourceNotFoundException(
-MyResourceException ex) {
+    public ResponseEntity<ErrorObject> handleResourceNotFoundException(MyResourceException ex) {
         ErrorObject errorObject = new ErrorObject();
         errorObject.setStatusCode(ex.getStatusCode());
         errorObject.setMessage(ex.getMessage());
         errorObject.setTimestamp(new Date());
 
-        return new ResponseEntity<ErrorObject>(errorObject, 
-HttpStatus.resolve(ex.getStatusCode()));
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.resolve(ex.getStatusCode()));
     }
 
     @ExceptionHandler(Exception.class)
