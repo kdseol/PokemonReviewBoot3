@@ -28,14 +28,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PokemonServiceTests {
-    @Mock
+    @Mock //가짜객체
     private PokemonRepository pokemonRepository;
-    @InjectMocks
+    @InjectMocks //가짜객체를 주입받는 서비스
     private PokemonServiceImpl pokemonService;
     
     @Test
@@ -49,7 +48,7 @@ public class PokemonServiceTests {
                 .type(PokemonType.ELECTRIC)
                 .build();
 
-        when(pokemonRepository.save(Mockito.any(Pokemon.class)))
+        when(pokemonRepository.save(Mockito.any(Pokemon.class))) //any -> 포켓몬 타입이 있는지만(포켓몬인지만) 맞으면 통과
                 .thenReturn(pokemon);
 
         PokemonDto savedPokemon = pokemonService.createPokemon(pokemonDto);
@@ -86,6 +85,8 @@ public class PokemonServiceTests {
         Assertions.assertThat(pageResponse.getPageSize()).isEqualTo(10);
         System.out.println(pageResponse.getContent().size());
         System.out.println(pageResponse.getPageSize());
+
+        System.out.println("pageResponse TotalPages = " + pageResponse.getTotalPages());
     }
     @Test
     public void PokemonService_FindById_ReturnPokemonDto() {
@@ -96,7 +97,7 @@ public class PokemonServiceTests {
                 .type(PokemonType.ELECTRIC)
                 .build();
 
-        when(pokemonRepository.findById(pokemon.getId()))
+        when(pokemonRepository.findById(pokemon.getId())) //findbyId가 Optional이다.
                 .thenReturn(Optional.of(pokemon));
 
         PokemonDto pokemonReturn = 
@@ -125,7 +126,7 @@ public class PokemonServiceTests {
 
         when(pokemonRepository.findById(pokemonId))
                 .thenReturn(Optional.ofNullable(pokemon));
-        when(pokemonRepository.save(pokemon))
+        lenient().when(pokemonRepository.save(pokemon)) //Unnecessary Stubbing Exception / Mokito 버전 업데이트 되면서 불필요한 테스트는 오류 발생하게 만듦 lenient().를 앞에 붙여 해소
                 .thenReturn(pokemon);
 
         PokemonDto updateReturn = 
