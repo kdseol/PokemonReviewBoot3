@@ -87,6 +87,8 @@ public class    ReviewRepositoryTests {
 
         assertThat(reviewSave.getTitle()).isEqualTo("new title");
         assertThat(reviewSave.getContent()).isEqualTo("new content");
+        assertThat(reviewSave.getStars()).isEqualTo(5);
+
     }
 
     @Test
