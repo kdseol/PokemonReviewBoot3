@@ -1,7 +1,6 @@
 package com.pokemonreview.api.controllers;
 
-import com.pokemonreview.api.controllers.PokemonController;
-import com.pokemonreview.api.dto.PageResponse;
+import com.pokemonreview.api.dto.PageResponseDto;
 import com.pokemonreview.api.dto.PokemonDto;
 import com.pokemonreview.api.dto.ReviewDto;
 import com.pokemonreview.api.models.Pokemon;
@@ -89,8 +88,8 @@ public class PokemonControllerTests {
 
     @Test
     public void PokemonController_GetAllPokemon_ReturnResponseDto() throws Exception {
-        PageResponse responseDto =
-                PageResponse.builder()
+        PageResponseDto responseDto =
+                PageResponseDto.builder()
                         .pageSize(10)
                         .last(true)
                         .pageNo(1)

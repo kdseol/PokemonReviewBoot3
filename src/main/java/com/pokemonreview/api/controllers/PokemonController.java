@@ -1,6 +1,6 @@
 package com.pokemonreview.api.controllers;
 
-import com.pokemonreview.api.dto.PageResponse;
+import com.pokemonreview.api.dto.PageResponseDto;
 import com.pokemonreview.api.dto.PokemonDto;
 import com.pokemonreview.api.service.PokemonService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class PokemonController {
     }
 
     @GetMapping
-    public ResponseEntity<PageResponse> getPokemons(
+    public ResponseEntity<PageResponseDto> getPokemons(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "2", required = false) int pageSize) {
         return new ResponseEntity<>(pokemonService.getAllPokemon(pageNo, pageSize), HttpStatus.OK);

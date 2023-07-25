@@ -1,7 +1,7 @@
 package com.pokemonreview.api.controllers;
 
 import com.pokemonreview.api.dto.UserDto;
-import com.pokemonreview.api.dto.PageResponse;
+import com.pokemonreview.api.dto.PageResponseDto;
 import com.pokemonreview.api.exceptions.ResourceNotFoundException;
 import com.pokemonreview.api.models.UserEntity;
 import com.pokemonreview.api.repository.UserRepository;
@@ -28,7 +28,7 @@ public class AdminController {
     @GetMapping
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    public PageResponse getAllUsers(
+    public PageResponseDto getAllUsers(
 						@RequestParam(value = "pageNo", defaultValue = "0", required = false) 
             int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "2", required = false) 
@@ -50,7 +50,7 @@ public class AdminController {
                     .build())
                     .collect(Collectors.toList());
 
-        PageResponse userResponse = new PageResponse();
+        PageResponseDto userResponse = new PageResponseDto();
         userResponse.setContent(userDtoList);
         userResponse.setPageNo(userEntityPage.getNumber());
         userResponse.setPageSize(userEntityPage.getSize());

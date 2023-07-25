@@ -1,16 +1,13 @@
 package com.pokemonreview.api.service;
 
-import com.pokemonreview.api.dto.PageResponse;
+import com.pokemonreview.api.dto.PageResponseDto;
 import com.pokemonreview.api.dto.PokemonDto;
-import com.pokemonreview.api.dto.ReviewDto;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.models.PokemonType;
-import com.pokemonreview.api.models.Review;
 import com.pokemonreview.api.repository.PokemonRepository;
 import com.pokemonreview.api.service.impl.PokemonServiceImpl;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -77,7 +74,7 @@ public class PokemonServiceTests {
         when(pokemonRepository.findAll(pageable))
                 .thenReturn(pokemons);
 
-        PageResponse pageResponse =
+        PageResponseDto pageResponse =
                 pokemonService.getAllPokemon(1,10);
 
         Assertions.assertThat(pageResponse).isNotNull();

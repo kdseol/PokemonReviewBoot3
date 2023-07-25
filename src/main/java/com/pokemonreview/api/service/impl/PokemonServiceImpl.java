@@ -1,6 +1,6 @@
 package com.pokemonreview.api.service.impl;
 
-import com.pokemonreview.api.dto.PageResponse;
+import com.pokemonreview.api.dto.PageResponseDto;
 import com.pokemonreview.api.dto.PokemonDto;
 import com.pokemonreview.api.exceptions.ResourceNotFoundException;
 import com.pokemonreview.api.models.Pokemon;
@@ -40,7 +40,7 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public PageResponse getAllPokemon(int pageNo, int pageSize) {
+    public PageResponseDto getAllPokemon(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<Pokemon> pokemons = pokemonRepository.findAll(pageable);
         List<Pokemon> listOfPokemon = pokemons.getContent(); //실제 데이터
@@ -49,7 +49,7 @@ public class PokemonServiceImpl implements PokemonService {
                 .map(p -> mapToDto(p)) //Stream<PokemonDto>
                 .collect(Collectors.toList()); //List<PokemonDto>
 
-        PageResponse pokemonResponse = new PageResponse();
+        PageResponseDto pokemonResponse = new PageResponseDto();
         pokemonResponse.setContent(content);
         pokemonResponse.setPageNo(pokemons.getNumber());
         pokemonResponse.setPageSize(pokemons.getSize());
