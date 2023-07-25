@@ -20,8 +20,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,11 +62,20 @@ public class AuthController {
                         loginDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        // 인증정보를 가지고 token 생성
         String token = jwtGenerator.generateToken(authentication);
+
         AuthResponseDto authResponseDTO = new AuthResponseDto(token);
         authResponseDTO.setUsername(loginDto.getUsername());
-        UserEntity userEntity = userRepository.findByUsername(loginDto.getUsername()).get();
-        authResponseDTO.setRole(userEntity.getRoles().get(0).getName());
+
+        //로그인 유저 null 체크
+        Optional<UserEntity> optionalUser = userRepository.findByUsername(loginDto.getUsername());
+
+        if(optionalUser.isPresent()) {
+            UserEntity userEntity = optionalUser.get();
+            authResponseDTO.setRole(userEntity.getRoles().get(0).getName());
+        }
+
         return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
     }
 
