@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
         ErrorObject errorObject = new ErrorObject();
         errorObject.setStatusCode(ex.getStatusCode());
         errorObject.setMessage(ex.getMessage());
-        errorObject.setTimestamp(new Date());
+        //errorObject.setTimestamp(new Date());
 
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.resolve(ex.getStatusCode()));
     }
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         ResponseEntity<Object> ret = null;
         
         String msg = "예상치 못한 문제가 발생했습니다.\n관리자에게 연락 하시기 바랍니다.";
-        result.put("message", msg);
+        result.put("message", msg+"\r\n"+e.getMessage());
         result.put("httpStatus", HttpStatus.INTERNAL_SERVER_ERROR.value());
         ret = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
         e.printStackTrace();

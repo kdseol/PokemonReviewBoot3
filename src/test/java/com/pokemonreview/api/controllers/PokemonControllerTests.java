@@ -80,7 +80,7 @@ public class PokemonControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(pokemonDto)));
 
-        response.andExpect(MockMvcResultMatchers.status().isCreated()) //201
+        response.andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name",
                         CoreMatchers.is(pokemonDto.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.type",
@@ -100,8 +100,7 @@ public class PokemonControllerTests {
         when(pokemonService.getAllPokemon(1,10))
                 .thenReturn(responseDto);
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon") //?pageNo=0&pageSize=10 >param으로 넣은 것
-                .contentType(MediaType.APPLICATION_JSON)
+        ResultActions response = mockMvc.perform(get("/api/pokemon")
                 .param("pageNo","1")
                 .param("pageSize", "10"));
 
@@ -118,10 +117,8 @@ public class PokemonControllerTests {
         when(pokemonService.getPokemonById(pokemonId))
                 .thenReturn(pokemonDto);
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon/1")
-                //.contentType(MediaType.APPLICATION_JSON)
-                //.content(objectMapper.writeValueAsString(pokemonDto))
-                );
+        ResultActions response =
+                mockMvc.perform(get("/api/pokemon/{pokemonId}", pokemonId));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name",
@@ -136,7 +133,7 @@ public class PokemonControllerTests {
         when(pokemonService.updatePokemon(pokemonDto, pokemonId))
                 .thenReturn(pokemonDto);
 
-        ResultActions response = mockMvc.perform(put("/api/pokemon/1")
+        ResultActions response = mockMvc.perform(put("/api/pokemon/{pokemonId}",pokemonId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(pokemonDto)));
 
@@ -150,10 +147,10 @@ public class PokemonControllerTests {
     @Test
     public void PokemonController_DeletePokemon_ReturnString() throws Exception {
         int pokemonId = 1;
-        doNothing().when(pokemonService).deletePokemonId(1);
+        doNothing().when(pokemonService).deletePokemonId(pokemonId);
 
-        ResultActions response = mockMvc.perform(delete("/api/pokemon/1")
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response =
+                mockMvc.perform(delete("/api/pokemon/{pokemonId}",pokemonId));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
