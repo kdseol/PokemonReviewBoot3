@@ -26,7 +26,8 @@ public class AdminController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
-		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public PageResponse getAllUsers(
 						@RequestParam(value = "pageNo", defaultValue = "0", required = false) 
             int pageNo,
