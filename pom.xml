@@ -113,6 +113,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- JAR 파일 생성 고정 파일명 -->
+		<finalName>springboot-vuejs-backend</finalName>
 	</build>
 
 </project>
