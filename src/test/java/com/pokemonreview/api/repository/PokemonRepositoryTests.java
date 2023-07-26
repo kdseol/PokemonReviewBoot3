@@ -71,7 +71,7 @@ class PokemonRepositoryTests {
         assertThat(savedPokemon.getName()).isEqualTo("pikachu");
     }
 
-   /* @Test
+    @Test
     public void PokemonRepository_FindByType_ReturnPokemonNotNull() {
         Pokemon pokemon = Pokemon.builder()
                 .name("pikachu")
@@ -85,9 +85,9 @@ class PokemonRepositoryTests {
 
         System.out.println("PokemonType.ELECTRIC.name() = " + PokemonType.ELECTRIC.name());
         assertThat(existPokemon).isNotNull();
-        assertThat(existPokemon.getType()).isEqualTo(PokemonType.ELECTRIC.name());
+        assertThat(existPokemon.getType()).isEqualTo(PokemonType.ELECTRIC);
         System.out.println("PokemonType.ELECTRIC.name() = " + PokemonType.ELECTRIC.name());
-    }*/
+    }
 
     @Test
     public void PokemonRepository_UpdatePokemon_ReturnPokemonNotNull() {
